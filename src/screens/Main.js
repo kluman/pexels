@@ -9,15 +9,20 @@ class Main extends Component {
     this.state = { page: undefined };
   }
   render() {
-    const client = new PexelsAPI(getApiKey());
-    client
-      .getCuratedPhotos(10, 1)
-      .then(result => {
-        console.dir(result);
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    const key = getApiKey();
+
+    if (key) {
+      const client = new PexelsAPI(key);
+
+      client
+        .getCuratedPhotos(10, 1)
+        .then(result => {
+          console.dir(result);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }
 
     return <div>Main 1</div>;
   }

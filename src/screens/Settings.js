@@ -6,7 +6,7 @@ import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Tooltip from "@material-ui/core/Tooltip";
-import { getApiKey } from "../api/Utils";
+import { getApiKey, setApiKey } from "../api/Utils";
 
 const styles = {
   keyFieldWrapper: {
@@ -21,6 +21,11 @@ const styles = {
 };
 
 class Settings extends Component {
+  handleSaveOnClick = () => {
+    this.props.keyHandler(document.getElementById("pexelsKey").value);
+    this.props.routeHandler("main");
+  };
+
   render() {
     const { classes } = this.props;
 
@@ -33,7 +38,7 @@ class Settings extends Component {
           <div className={classes.keyFieldWrapper}>
             <TextField
               required
-              id="outlined-required"
+              id="pexelsKey"
               label="Required"
               defaultValue={getApiKey()}
               placeholder="Pexels API Key"
@@ -45,7 +50,7 @@ class Settings extends Component {
             />
           </div>
           <Tooltip title="Save Settings">
-            <IconButton color="primary">
+            <IconButton color="primary" onClick={this.handleSaveOnClick}>
               <Icon>save</Icon>
             </IconButton>
           </Tooltip>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import OnboardingCard from "./OnboardingCard";
+import OnboardingCard from "../components/OnboardingCard";
 
 class Onboarding extends Component {
   constructor(props) {

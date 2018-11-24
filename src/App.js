@@ -3,20 +3,28 @@ import "./App.css";
 import Settings from "./screens/Settings";
 import Main from "./screens/Main";
 import PexelsAppBar from "./components/PexelsAppBar";
-import Onboarding from "./components/Onboarding";
+import Onboarding from "./screens/Onboarding";
+import { getApiKey, setApiKey } from "./api/Utils";
 
 class App extends Component {
   constructor(props) {
     super(props);
 
+    let apiKey = getApiKey();
+    let onboardedDate = this.getOnboardedDate();
     let screen;
-    if (this.getOnboardedDate()) {
+
+    if (apiKey && onboardedDate) {
       screen = <Main />;
-    } else {
+    } else if (!onboardedDate) {
       screen = <Onboarding doneHandler={this.handleOnboardingDone} />;
+    } else {
+      screen = (
+        <Settings routeHandler={this.handleRoute} keyHandler={this.handleKey} />
+      );
     }
 
-    this.state = { screen: screen, onboarded: undefined };
+    this.state = { screen: screen, onboarded: undefined, apiKey: apiKey };
   }
 
   getOnboardedDate() {
@@ -29,31 +37,54 @@ class App extends Component {
 
   handleOnboardingDone = date => {
     this.setOnboardedDate(date);
-    this.setState({ onboarded: date });
+    this.setState({
+      onboarded: date,
+      screen: (
+        <Settings routeHandler={this.handleRoute} keyHandler={this.handleKey} />
+      )
+    });
   };
 
   handleRoute = route => {
-    console.log(`changing to route ${route}`);
-    this.setState({ screen: route });
+    this.setState({ screen: this.screenFromRoute(route) });
   };
 
-  screenFromRoute() {
-    switch (this.state.screen) {
+  handleKey = apiKey => {
+    setApiKey(apiKey);
+    this.setState({ apiKey: apiKey });
+  };
+
+  screenFromRoute(route) {
+    switch (route) {
       case "settings": {
-        return <Settings />;
+        return (
+          <Settings
+            routeHandler={this.handleRoute}
+            keyHandler={this.handleKey}
+          />
+        );
       }
       default: {
+        if (!getApiKey()) {
+          return (
+            <Settings
+              routeHandler={this.handleRoute}
+              keyHandler={this.handleKey}
+            />
+          );
+        }
         return <Main />;
       }
     }
   }
 
   render() {
-    let screen = this.screenFromRoute();
+    let { apiKey, screen } = this.state;
 
     return (
       <div className="App">
         <PexelsAppBar
+          isApiKey={apiKey !== null}
           routeHandler={this.handleRoute}
           onboarded={this.getOnboardedDate()}
         />

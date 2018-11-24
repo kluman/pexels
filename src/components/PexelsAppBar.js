@@ -8,6 +8,13 @@ import Typography from "@material-ui/core/Typography";
 
 const styles = {
   root: { marginBottom: "1em" },
+  componentsWrapper: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    width: "100%"
+  },
   search: { display: "flex", flexDirection: "row", alignItems: "center" },
   inputRoot: { marginLeft: "2em" },
   inputInput: {
@@ -25,7 +32,7 @@ class PexelsAppBar extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { settingsActive: false };
+    this.state = { settingsActive: false, key: props.key };
   }
 
   settingsClickHandler = () => {
@@ -43,7 +50,39 @@ class PexelsAppBar extends Component {
 
   render() {
     const state = this.state;
-    const { classes } = this.props;
+    const { classes, isApiKey } = this.props;
+
+    let appBarComponents = undefined;
+    if (isApiKey) {
+      appBarComponents = (
+        <div className={classes.componentsWrapper}>
+          <div className={classes.search}>
+            <InputBase
+              placeholder="Search…"
+              classes={{
+                root: classes.inputRoot,
+                input: classes.inputInput
+              }}
+            />
+            <div className={classes.searchIcon}>
+              <Icon>search</Icon>
+            </div>
+          </div>
+          <div className={classes.settings}>
+            <Icon
+              onClick={this.settingsClickHandler}
+              className={
+                state.settingsActive
+                  ? classes.settingsIconActive
+                  : classes.settingsIcon
+              }
+            >
+              settings
+            </Icon>
+          </div>
+        </div>
+      );
+    }
 
     return (
       <div className={classes.root}>
@@ -57,30 +96,7 @@ class PexelsAppBar extends Component {
             <Typography variant="h6" color="inherit">
               Pexels
             </Typography>
-            <div className={classes.search}>
-              <InputBase
-                placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput
-                }}
-              />
-              <div className={classes.searchIcon}>
-                <Icon>search</Icon>
-              </div>
-            </div>
-            <div className={classes.settings}>
-              <Icon
-                onClick={this.settingsClickHandler}
-                className={
-                  state.settingsActive
-                    ? classes.settingsIconActive
-                    : classes.settingsIcon
-                }
-              >
-                settings
-              </Icon>
-            </div>
+            {appBarComponents}
           </Toolbar>
         </AppBar>
       </div>
