@@ -4,7 +4,7 @@ import Settings from "./screens/Settings";
 import Main from "./screens/Main";
 import PexelsAppBar from "./components/PexelsAppBar";
 import Onboarding from "./screens/Onboarding";
-import { getApiKey, setApiKey } from "./api/Utils";
+import { getApiKey, setApiKey } from "./Utils";
 
 class App extends Component {
   constructor(props) {
@@ -24,7 +24,12 @@ class App extends Component {
       );
     }
 
-    this.state = { screen: screen, onboarded: undefined, apiKey: apiKey };
+    this.state = {
+      onboarded: undefined,
+      apiKey: apiKey,
+      qs: undefined,
+      screen: screen
+    };
   }
 
   getOnboardedDate() {
@@ -40,7 +45,10 @@ class App extends Component {
     this.setState({
       onboarded: date,
       screen: (
-        <Settings routeHandler={this.handleRoute} keyHandler={this.handleKey} />
+        <Settings
+          routeHandler={this.handleRoute}
+          keyHandler={this.handleApiKeyUpdate}
+        />
       )
     });
   };
@@ -49,9 +57,13 @@ class App extends Component {
     this.setState({ screen: this.screenFromRoute(route) });
   };
 
-  handleKey = apiKey => {
+  handleApiKeyUpdate = apiKey => {
     setApiKey(apiKey);
     this.setState({ apiKey: apiKey });
+  };
+
+  handleSearch = qs => {
+    this.setState({ qs: qs, screen: <Main queryString={qs} /> });
   };
 
   screenFromRoute(route) {
@@ -60,7 +72,7 @@ class App extends Component {
         return (
           <Settings
             routeHandler={this.handleRoute}
-            keyHandler={this.handleKey}
+            keyHandler={this.handleApiKeyUpdate}
           />
         );
       }
@@ -69,11 +81,11 @@ class App extends Component {
           return (
             <Settings
               routeHandler={this.handleRoute}
-              keyHandler={this.handleKey}
+              keyHandler={this.handleApiKeyUpdate}
             />
           );
         }
-        return <Main />;
+        return <Main queryString={this.state.qs} />;
       }
     }
   }
@@ -86,6 +98,7 @@ class App extends Component {
         <PexelsAppBar
           isApiKey={apiKey !== null}
           routeHandler={this.handleRoute}
+          searchHandler={this.handleSearch}
           onboarded={this.getOnboardedDate()}
         />
         <main

@@ -6,7 +6,7 @@ import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Tooltip from "@material-ui/core/Tooltip";
-import { getApiKey, setApiKey } from "../api/Utils";
+import { getApiKey, setApiKey } from "../Utils";
 
 const styles = {
   keyFieldWrapper: {
