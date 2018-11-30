@@ -1,19 +1,37 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import Icon from "@material-ui/core/Icon";
-import { withStyles } from "@material-ui/core";
 
 const styles = {};
 
 class Pagination extends Component {
-  constructor(props) {
-    super(props);
-  }
+  clickHandler = page => {
+    this.props.paginationHandler(page);
+  };
 
   render() {
-    const { classes } = this.props;
+    const { classes, prev, next } = this.props;
+    let prevButton,
+      nextButton = undefined;
 
-    return <div className={classes.pagination}>pagination</div>;
+    if (prev) {
+      prevButton = (
+        <Icon onClick={e => this.clickHandler(prev, e)}>arrow_back_ios</Icon>
+      );
+    }
+
+    if (next) {
+      nextButton = (
+        <Icon onClick={e => this.clickHandler(next, e)}>arrow_forward_ios</Icon>
+      );
+    }
+
+    return (
+      <div className={classes.pagination}>
+        {prevButton}
+        {nextButton}
+      </div>
+    );
   }
 }
 
