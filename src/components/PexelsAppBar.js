@@ -66,8 +66,8 @@ class PexelsAppBar extends Component {
   render() {
     const state = this.state;
     const { classes, isApiKey } = this.props;
-
     let appBarComponents = undefined;
+
     if (isApiKey) {
       appBarComponents = (
         <div className={classes.componentsWrapper}>
