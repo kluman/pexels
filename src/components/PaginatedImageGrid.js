@@ -16,7 +16,7 @@ class PaginatedImageGrid extends Component {
   };
 
   render() {
-    const { classes, data } = this.props;
+    const { classes, data, title } = this.props;
 
     if (data.error) {
       return <Error message={data.error} />;
@@ -26,7 +26,7 @@ class PaginatedImageGrid extends Component {
       <div className="PaginatedImageGrid">
         <GridList cellHeight={180} className={classes.gridList}>
           <GridListTile key="Subheader" cols={2} style={{ height: "auto" }}>
-            <ListSubheader component="div">TODO: Title</ListSubheader>
+            <ListSubheader component="div">{title}</ListSubheader>
           </GridListTile>
           {data.photos.map(photo => (
             <GridListTile key={photo.id}>

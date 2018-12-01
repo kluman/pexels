@@ -37,6 +37,31 @@ class PexelsSearch extends Component {
     }
   };
 
+  popularPhotos(number, page) {
+    const key = getApiKey();
+
+    if (key) {
+      const client = new PexelsAPI(key);
+
+      client
+        .getPopularPhotos(number, page)
+        .then(data => {
+          this.setState({
+            result: (
+              <PaginatedImageGrid
+                title="Popular Photos"
+                data={data}
+                paginationHandler={this.handlePagination}
+              />
+            )
+          });
+        })
+        .catch(error => {
+          this.setState({ result: <Error message={error} /> });
+        });
+    }
+  }
+
   curatedPhotos(number, page) {
     const key = getApiKey();
 
@@ -49,6 +74,7 @@ class PexelsSearch extends Component {
           this.setState({
             result: (
               <PaginatedImageGrid
+                title="Curated Photos"
                 data={data}
                 paginationHandler={this.handlePagination}
               />
@@ -73,6 +99,7 @@ class PexelsSearch extends Component {
           this.setState({
             result: (
               <PaginatedImageGrid
+                title={`Search for '${queryString}'`}
                 data={data}
                 paginationHandler={this.handlePagination}
               />
