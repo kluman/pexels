@@ -66,6 +66,10 @@ class App extends Component {
     this.setState({ qs: qs, screen: <Main queryString={qs} /> });
   };
 
+  handleSearchType = searchType => {
+    this.setState({ screen: <Main searchType={searchType} /> });
+  };
+
   screenFromRoute(route) {
     switch (route) {
       case "settings": {
@@ -99,6 +103,7 @@ class App extends Component {
           isApiKey={apiKey !== null}
           routeHandler={this.handleRoute}
           searchHandler={this.handleSearch}
+          searchTypeHandler={this.handleSearchType}
           onboarded={this.getOnboardedDate()}
         />
         <main

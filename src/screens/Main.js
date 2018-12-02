@@ -6,11 +6,11 @@ const styles = {};
 
 class Main extends Component {
   render() {
-    const { queryString } = this.props;
+    const { queryString, searchType } = this.props;
 
     return (
       <div className="Main">
-        <PexelsSearch queryString={queryString} />
+        <PexelsSearch queryString={queryString} searchType={searchType} />
       </div>
     );
   }

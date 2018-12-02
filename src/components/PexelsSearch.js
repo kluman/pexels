@@ -16,7 +16,13 @@ class PexelsSearch extends Component {
   }
 
   componentDidMount() {
-    this.curatedPhotos(this.state.number, this.state.page);
+    if (this.props.queryString) {
+      this.search(this.props.queryString, this.state.number, this.state.page);
+    } else if (this.props.searchType === "popular") {
+      this.popularPhotos(this.state.number, this.state.page);
+    } else {
+      this.curatedPhotos(this.state.number, this.state.page);
+    }
   }
 
   componentDidUpdate(prevProps) {
@@ -26,12 +32,20 @@ class PexelsSearch extends Component {
       } else {
         this.curatedPhotos(this.state.number, this.state.page);
       }
+    } else if (prevProps.searchType !== this.props.searchType) {
+      if (this.props.searchType === "popular") {
+        this.popularPhotos(this.state.number, this.state.page);
+      } else {
+        this.curatedPhotos(this.state.number, this.state.page);
+      }
     }
   }
 
   handlePagination = page => {
     if (this.props.queryString) {
       this.search(this.props.queryString, this.state.number, page);
+    } else if (this.props.searchType === "popular") {
+      this.popularPhotos(this.state.number, page);
     } else {
       this.curatedPhotos(this.state.number, page);
     }
@@ -104,6 +118,26 @@ class PexelsSearch extends Component {
                 paginationHandler={this.handlePagination}
               />
             )
+          });
+        })
+        .catch(error => {
+          this.setState({ result: <Error message={error} /> });
+        });
+    }
+  }
+
+  photo(id) {
+    const key = getApiKey();
+
+    if (key) {
+      const client = new PexelsAPI(key);
+
+      // TODO: this needs to pop an overlay to a new PexelsPhoto component
+      client
+        .getPhoto(id)
+        .then(data => {
+          this.setState({
+            result: <p>TODO</p>
           });
         })
         .catch(error => {

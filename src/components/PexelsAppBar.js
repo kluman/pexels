@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
+import Button from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
 import InputBase from "@material-ui/core/InputBase";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -17,6 +18,11 @@ const styles = {
     width: "100%"
   },
   search: { display: "flex", flexDirection: "row", alignItems: "center" },
+  searchTypes: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center"
+  },
   inputRoot: { marginLeft: "2em" },
   inputInput: {
     width: 200,
@@ -63,6 +69,10 @@ class PexelsAppBar extends Component {
     }
   };
 
+  searchTypeHandler = (searchType, e) => {
+    this.props.searchTypeHandler(searchType);
+  };
+
   render() {
     const state = this.state;
     const { classes, isApiKey } = this.props;
@@ -84,6 +94,24 @@ class PexelsAppBar extends Component {
             />
             <div className={classes.searchIcon}>
               <Icon onClick={this.searchHandler}>search</Icon>
+            </div>
+            <div className={classes.searchTypes}>
+              <Button
+                color="primary"
+                size="small"
+                className={classes.button}
+                onClick={e => this.searchTypeHandler("curated", e)}
+              >
+                Curated
+              </Button>
+              <Button
+                color="primary"
+                size="small"
+                className={classes.button}
+                onClick={e => this.searchTypeHandler("popular", e)}
+              >
+                Popular
+              </Button>
             </div>
           </div>
           <div className={classes.settings}>
