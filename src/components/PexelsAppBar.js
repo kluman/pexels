@@ -3,6 +3,7 @@ import { withStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
+import IconButton from "@material-ui/core/IconButton";
 import InputBase from "@material-ui/core/InputBase";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
@@ -92,9 +93,9 @@ class PexelsAppBar extends Component {
               onKeyDown={this.searchHandler}
               id="qs"
             />
-            <div className={classes.searchIcon}>
+            <IconButton className={classes.searchIcon}>
               <Icon onClick={this.searchHandler}>search</Icon>
-            </div>
+            </IconButton>
             <div className={classes.searchTypes}>
               <Button
                 color="primary"

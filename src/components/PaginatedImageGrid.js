@@ -1,18 +1,33 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
+import CardMedia from "@material-ui/core/CardMedia";
+import CardActions from "@material-ui/core/CardActions";
 import Error from "../components/Error";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
 import GridListTileBar from "@material-ui/core/GridListTileBar";
+import Icon from "@material-ui/core/Icon";
 import IconButton from "@material-ui/core/IconButton";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import Pagination from "./Pagination";
 
-const styles = {};
+const styles = {
+  media: {
+    height: 200,
+    width: "50vw"
+  },
+  iconButton: {
+    color: "#fff"
+  }
+};
 
 class PaginatedImageGrid extends Component {
   handlePagination = page => {
     this.props.paginationHandler(page);
+  };
+
+  handleImageClick = id => {
+    this.props.imageDetailHandler(id);
   };
 
   render() {
@@ -29,11 +44,27 @@ class PaginatedImageGrid extends Component {
             <ListSubheader component="div">{title}</ListSubheader>
           </GridListTile>
           {data.photos.map(photo => (
-            <GridListTile key={photo.id}>
-              <img src={photo.src.medium} />
+            <GridListTile
+              key={photo.id}
+              onClick={e => this.handleImageClick(photo.id)}
+            >
+              <CardMedia
+                className={classes.media}
+                image={photo.src.medium}
+                title={photo.photographer}
+              />
               <GridListTileBar
-                subtitle={<span>Photographer: {photo.photographer}</span>}
-                actionIcon={<IconButton className={classes.icon} />}
+                className={classes.actions}
+                actionIcon={
+                  <div className={classes.iconContainer}>
+                    <IconButton className={classes.iconButton}>
+                      <Icon>cloud_download</Icon>
+                    </IconButton>
+                    <IconButton className={classes.iconButton}>
+                      <Icon>info</Icon>
+                    </IconButton>
+                  </div>
+                }
               />
             </GridListTile>
           ))}

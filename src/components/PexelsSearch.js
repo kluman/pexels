@@ -3,6 +3,7 @@ import Error from "../components/Error";
 import { getApiKey } from "../Utils";
 import PexelsAPI from "pexels-api-wrapper";
 import PaginatedImageGrid from "../components/PaginatedImageGrid";
+import PhotoModal from "./PhotoModal";
 
 class PexelsSearch extends Component {
   constructor(props) {
@@ -10,8 +11,7 @@ class PexelsSearch extends Component {
 
     this.state = {
       number: 12,
-      page: 1,
-      result: undefined
+      page: 1
     };
   }
 
@@ -51,6 +51,11 @@ class PexelsSearch extends Component {
     }
   };
 
+  handleImageDetail = id => {
+    console.log(id);
+    this.setState({ id: id });
+  };
+
   popularPhotos(number, page) {
     const key = getApiKey();
 
@@ -66,6 +71,7 @@ class PexelsSearch extends Component {
                 title="Popular Photos"
                 data={data}
                 paginationHandler={this.handlePagination}
+                imageDetailHandler={this.handleImageDetail}
               />
             )
           });
@@ -91,6 +97,7 @@ class PexelsSearch extends Component {
                 title="Curated Photos"
                 data={data}
                 paginationHandler={this.handlePagination}
+                imageDetailHandler={this.handleImageDetail}
               />
             )
           });
@@ -116,6 +123,7 @@ class PexelsSearch extends Component {
                 title={`Search for '${queryString}'`}
                 data={data}
                 paginationHandler={this.handlePagination}
+                imageDetailHandler={this.handleImageDetail}
               />
             )
           });
@@ -126,30 +134,15 @@ class PexelsSearch extends Component {
     }
   }
 
-  photo(id) {
-    const key = getApiKey();
-
-    if (key) {
-      const client = new PexelsAPI(key);
-
-      // TODO: this needs to pop an overlay to a new PexelsPhoto component
-      client
-        .getPhoto(id)
-        .then(data => {
-          this.setState({
-            result: <p>TODO</p>
-          });
-        })
-        .catch(error => {
-          this.setState({ result: <Error message={error} /> });
-        });
-    }
-  }
-
   render() {
-    const { result } = this.state;
+    const { id, result } = this.state;
 
-    return <div>{result}</div>;
+    return (
+      <div className="PexelsSearch">
+        <PhotoModal id={id} />
+        {result}
+      </div>
+    );
   }
 }
 

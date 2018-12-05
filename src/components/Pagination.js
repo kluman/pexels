@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import Icon from "@material-ui/core/Icon";
+import IconButton from "@material-ui/core/IconButton";
 
 const styles = {};
 
@@ -16,13 +17,19 @@ class Pagination extends Component {
 
     if (prev) {
       prevButton = (
-        <Icon onClick={e => this.clickHandler(prev, e)}>arrow_back_ios</Icon>
+        <IconButton>
+          <Icon onClick={e => this.clickHandler(prev, e)}>arrow_back_ios</Icon>
+        </IconButton>
       );
     }
 
     if (next) {
       nextButton = (
-        <Icon onClick={e => this.clickHandler(next, e)}>arrow_forward_ios</Icon>
+        <IconButton>
+          <Icon onClick={e => this.clickHandler(next, e)}>
+            arrow_forward_ios
+          </Icon>
+        </IconButton>
       );
     }
 
