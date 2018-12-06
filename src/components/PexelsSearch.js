@@ -3,7 +3,6 @@ import Error from "../components/Error";
 import { getApiKey } from "../Utils";
 import PexelsAPI from "pexels-api-wrapper";
 import PaginatedImageGrid from "../components/PaginatedImageGrid";
-import PhotoModal from "./PhotoModal";
 
 class PexelsSearch extends Component {
   constructor(props) {
@@ -51,11 +50,6 @@ class PexelsSearch extends Component {
     }
   };
 
-  handleImageDetail = id => {
-    console.log(id);
-    this.setState({ id: id });
-  };
-
   popularPhotos(number, page) {
     const key = getApiKey();
 
@@ -71,7 +65,6 @@ class PexelsSearch extends Component {
                 title="Popular Photos"
                 data={data}
                 paginationHandler={this.handlePagination}
-                imageDetailHandler={this.handleImageDetail}
               />
             )
           });
@@ -97,7 +90,6 @@ class PexelsSearch extends Component {
                 title="Curated Photos"
                 data={data}
                 paginationHandler={this.handlePagination}
-                imageDetailHandler={this.handleImageDetail}
               />
             )
           });
@@ -123,7 +115,6 @@ class PexelsSearch extends Component {
                 title={`Search for '${queryString}'`}
                 data={data}
                 paginationHandler={this.handlePagination}
-                imageDetailHandler={this.handleImageDetail}
               />
             )
           });
@@ -135,14 +126,9 @@ class PexelsSearch extends Component {
   }
 
   render() {
-    const { id, result } = this.state;
+    const { result } = this.state;
 
-    return (
-      <div className="PexelsSearch">
-        <PhotoModal id={id} />
-        {result}
-      </div>
-    );
+    return <div className="PexelsSearch">{result}</div>;
   }
 }
 

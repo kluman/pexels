@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import CardMedia from "@material-ui/core/CardMedia";
-import CardActions from "@material-ui/core/CardActions";
 import Error from "../components/Error";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
@@ -9,7 +8,9 @@ import GridListTileBar from "@material-ui/core/GridListTileBar";
 import Icon from "@material-ui/core/Icon";
 import IconButton from "@material-ui/core/IconButton";
 import ListSubheader from "@material-ui/core/ListSubheader";
+import Modal from "@material-ui/core/Modal";
 import Pagination from "./Pagination";
+import Photo from "./Photo";
 
 const styles = {
   media: {
@@ -22,16 +23,27 @@ const styles = {
 };
 
 class PaginatedImageGrid extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { id: null, open: false };
+  }
+
   handlePagination = page => {
     this.props.paginationHandler(page);
   };
 
   handleImageClick = id => {
-    this.props.imageDetailHandler(id);
+    this.setState({ id: id, open: true });
+  };
+
+  handleClose = () => {
+    this.setState({ open: false });
   };
 
   render() {
     const { classes, data, title } = this.props;
+    let { id, open } = this.state;
 
     if (data.error) {
       return <Error message={data.error} />;
@@ -75,6 +87,10 @@ class PaginatedImageGrid extends Component {
           next={data.next_page ? data.page + 1 : undefined}
           paginationHandler={this.handlePagination}
         />
+
+        <Modal open={open} onClose={this.handleClose}>
+          <Photo id={id} />
+        </Modal>
       </div>
     );
   }

@@ -21,24 +21,17 @@ const styles = {
   }
 };
 
-class PhotoModal extends Component {
+class Photo extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      open: false
-    };
+    this.state = { result: undefined };
+    this.photo(props.id);
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.id && prevProps.id !== this.props.id) {
-      this.photo(this.props.id);
-    }
+  shouldComponentUpdate(newProps, newState) {
+    return newState.result !== undefined;
   }
-
-  handleClose = close => {
-    this.setState({ open: false });
-  };
 
   photo(id) {
     const key = getApiKey();
@@ -70,12 +63,8 @@ class PhotoModal extends Component {
   }
 
   render() {
-    return (
-      <Modal open={this.state.open} onClose={this.handleClose}>
-        {this.state.result}
-      </Modal>
-    );
+    return <div className="Photo">{this.state.result}</div>;
   }
 }
 
-export default withStyles(styles)(PhotoModal);
+export default withStyles(styles)(Photo);
