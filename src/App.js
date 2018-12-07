@@ -3,6 +3,7 @@ import "./App.css";
 import Settings from "./screens/Settings";
 import Main from "./screens/Main";
 import PexelsAppBar from "./components/PexelsAppBar";
+import Offline from "./screens/Offline";
 import Onboarding from "./screens/Onboarding";
 import { getApiKey, setApiKey } from "./Utils";
 
@@ -30,6 +31,25 @@ class App extends Component {
       qs: undefined,
       screen: screen
     };
+
+    window.addEventListener(
+      "online",
+      () => {
+        window.setTimeout(
+          () => this.setState({ screen: this.screenFromRoute("") }),
+          2000
+        );
+      },
+      false
+    );
+
+    window.addEventListener(
+      "offline",
+      () => {
+        this.setState({ screen: <Offline /> });
+      },
+      false
+    );
   }
 
   getOnboardedDate() {

@@ -41,6 +41,11 @@ class PaginatedImageGrid extends Component {
     this.setState({ open: false });
   };
 
+  handleDownloadClick = (e, photo) => {
+    e.stopPropagation();
+    console.log(`TODO: execute CEP call. ID: ${photo.id}`);
+  };
+
   render() {
     const { classes, data, title } = this.props;
     let { id, open } = this.state;
@@ -69,7 +74,10 @@ class PaginatedImageGrid extends Component {
                 className={classes.actions}
                 actionIcon={
                   <div className={classes.iconContainer}>
-                    <IconButton className={classes.iconButton}>
+                    <IconButton
+                      className={classes.iconButton}
+                      onClick={e => this.handleDownloadClick(e, photo)}
+                    >
                       <Icon>cloud_download</Icon>
                     </IconButton>
                     <IconButton className={classes.iconButton}>
