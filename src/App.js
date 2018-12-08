@@ -1,11 +1,21 @@
 import React, { Component } from "react";
 import "./App.css";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import Settings from "./screens/Settings";
 import Main from "./screens/Main";
 import PexelsAppBar from "./components/PexelsAppBar";
 import Offline from "./screens/Offline";
 import Onboarding from "./screens/Onboarding";
 import { getApiKey, setApiKey } from "./Utils";
+
+const theme = createMuiTheme({
+  palette: {
+    type: "dark"
+  },
+  typography: {
+    useNextVariants: true
+  }
+});
 
 class App extends Component {
   constructor(props) {
@@ -118,26 +128,28 @@ class App extends Component {
     let { apiKey, screen } = this.state;
 
     return (
-      <div className="App">
-        <PexelsAppBar
-          isApiKey={apiKey !== null}
-          routeHandler={this.handleRoute}
-          searchHandler={this.handleSearch}
-          searchTypeHandler={this.handleSearchType}
-          onboarded={this.getOnboardedDate()}
-        />
-        <main
-          className="App-body"
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center"
-          }}
-        >
-          {screen}
-        </main>
-      </div>
+      <MuiThemeProvider theme={theme}>
+        <div className="App">
+          <PexelsAppBar
+            isApiKey={apiKey !== null}
+            routeHandler={this.handleRoute}
+            searchHandler={this.handleSearch}
+            searchTypeHandler={this.handleSearchType}
+            onboarded={this.getOnboardedDate()}
+          />
+          <main
+            className="App-body"
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+          >
+            {screen}
+          </main>
+        </div>
+      </MuiThemeProvider>
     );
   }
 }

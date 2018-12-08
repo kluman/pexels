@@ -6,8 +6,6 @@ const styles = {};
 
 class Offline extends Component {
   render() {
-    const { queryString, searchType } = this.props;
-
     return (
       <div className="Offline">
         <Error message="You are currently offline." />

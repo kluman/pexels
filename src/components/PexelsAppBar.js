@@ -30,7 +30,8 @@ const styles = {
     padding: ".25em",
     border: "solid 1px",
     borderColor: "#cdcdcd",
-    backgroundColor: "#fff"
+    backgroundColor: "#fff",
+    color: "#000"
   },
   settings: { width: "100%", textAlign: "right" },
   settingsIconActive: { color: "blue" }

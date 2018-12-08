@@ -17,16 +17,18 @@ class Pagination extends Component {
 
     if (prev) {
       prevButton = (
-        <IconButton>
-          <Icon onClick={e => this.clickHandler(prev, e)}>arrow_back_ios</Icon>
+        <IconButton color="secondary">
+          <Icon color="secondary" onClick={e => this.clickHandler(prev, e)}>
+            arrow_back_ios
+          </Icon>
         </IconButton>
       );
     }
 
     if (next) {
       nextButton = (
-        <IconButton>
-          <Icon onClick={e => this.clickHandler(next, e)}>
+        <IconButton color="secondary">
+          <Icon color="secondary" onClick={e => this.clickHandler(next, e)}>
             arrow_forward_ios
           </Icon>
         </IconButton>

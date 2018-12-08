@@ -11,8 +11,12 @@ import ListSubheader from "@material-ui/core/ListSubheader";
 import Modal from "@material-ui/core/Modal";
 import Pagination from "./Pagination";
 import Photo from "./Photo";
+import { Typography } from "@material-ui/core";
 
 const styles = {
+  title: {
+    fontSize: "1.6em"
+  },
   media: {
     height: 200,
     width: "50vw"
@@ -33,8 +37,9 @@ class PaginatedImageGrid extends Component {
     this.props.paginationHandler(page);
   };
 
-  handleImageClick = id => {
-    this.setState({ id: id, open: true });
+  handleImageClick = (e, photo) => {
+    e.stopPropagation();
+    this.setState({ id: photo.id, open: true });
   };
 
   handleClose = () => {
@@ -58,13 +63,18 @@ class PaginatedImageGrid extends Component {
       <div className="PaginatedImageGrid">
         <GridList cellHeight={180} className={classes.gridList}>
           <GridListTile key="Subheader" cols={2} style={{ height: "auto" }}>
-            <ListSubheader component="div">{title}</ListSubheader>
+            <ListSubheader component="div">
+              <Typography
+                color="primary"
+                variant="h1"
+                className={classes.title}
+              >
+                {title}
+              </Typography>
+            </ListSubheader>
           </GridListTile>
           {data.photos.map(photo => (
-            <GridListTile
-              key={photo.id}
-              onClick={e => this.handleImageClick(photo.id)}
-            >
+            <GridListTile key={photo.id}>
               <CardMedia
                 className={classes.media}
                 image={photo.src.medium}
@@ -80,7 +90,10 @@ class PaginatedImageGrid extends Component {
                     >
                       <Icon>cloud_download</Icon>
                     </IconButton>
-                    <IconButton className={classes.iconButton}>
+                    <IconButton
+                      className={classes.iconButton}
+                      onClick={e => this.handleImageClick(e, photo)}
+                    >
                       <Icon>info</Icon>
                     </IconButton>
                   </div>
@@ -97,7 +110,11 @@ class PaginatedImageGrid extends Component {
         />
 
         <Modal open={open} onClose={this.handleClose}>
-          <Photo id={id} />
+          <Photo
+            id={id}
+            downloadHandler={this.handleDownloadClick}
+            closeHandler={this.handleClose}
+          />
         </Modal>
       </div>
     );

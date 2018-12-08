@@ -6,14 +6,22 @@ import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Error from "./Error";
+import Icon from "@material-ui/core/Icon";
+import IconButton from "@material-ui/core/IconButton";
 import Modal from "@material-ui/core/Modal";
 import PexelsAPI from "pexels-api-wrapper";
+import Typography from "@material-ui/core/Typography";
 import { getApiKey } from "../Utils";
 import { withStyles } from "@material-ui/core/styles";
 
 const styles = {
   card: {
     width: "100%"
+  },
+  cardContentLabel: {
+    display: "inline-block",
+    marginRight: "5px",
+    fontWeight: "bolder"
   },
   media: {
     height: "55vh",
@@ -33,6 +41,14 @@ class Photo extends Component {
     return newState.result !== undefined;
   }
 
+  handleDownloadClick = (e, photo) => {
+    this.props.downloadHandler(e, photo);
+  };
+
+  handleCloseClick = () => {
+    this.props.closeHandler();
+  };
+
   photo(id) {
     const key = getApiKey();
 
@@ -51,6 +67,48 @@ class Photo extends Component {
                   image={data.src.large}
                   title={data.photographer}
                 />
+                <CardContent>
+                  <div>
+                    <Typography variant="caption">
+                      <span className={classes.cardContentLabel}>
+                        Photographer:
+                      </span>
+                      <span className={classes.cardContentValue}>
+                        {data.photographer}
+                      </span>
+                    </Typography>
+                  </div>
+                  <div>
+                    <Typography variant="caption">
+                      <span className={classes.cardContentLabel}>Width:</span>{" "}
+                      <span className={classes.cardContentValue}>
+                        {data.width}
+                      </span>
+                    </Typography>
+                  </div>
+                  <div>
+                    <Typography variant="caption">
+                      <span className={classes.cardContentLabel}>Height:</span>{" "}
+                      <span className={classes.cardContentValue}>
+                        {data.height}
+                      </span>
+                    </Typography>
+                  </div>
+                </CardContent>
+                <CardActions>
+                  <IconButton
+                    className={classes.iconButton}
+                    onClick={e => this.handleDownloadClick(e, data)}
+                  >
+                    <Icon>cloud_download</Icon>
+                  </IconButton>
+                  <IconButton
+                    className={classes.iconButton}
+                    onClick={e => this.handleCloseClick(e, data)}
+                  >
+                    <Icon>clear</Icon>
+                  </IconButton>
+                </CardActions>
               </Card>
             ),
             open: true
