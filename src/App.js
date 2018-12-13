@@ -31,7 +31,10 @@ class App extends Component {
       screen = <Onboarding doneHandler={this.handleOnboardingDone} />;
     } else {
       screen = (
-        <Settings routeHandler={this.handleRoute} keyHandler={this.handleKey} />
+        <Settings
+          routeHandler={this.handleRoute}
+          keyHandler={this.handleApiKeyUpdate}
+        />
       );
     }
 
