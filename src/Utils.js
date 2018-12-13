@@ -1,4 +1,4 @@
-import CSInterface from "adobe-cep/CEP_9.x/CSInterface.js";
+import CSInterface from "adobe-cep/CEP_8.x/CSInterface.js";
 
 function getApiKey() {
   return localStorage.getItem("pexels-key");
