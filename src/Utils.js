@@ -1,3 +1,5 @@
+import CSInterface from "adobe-cep/CEP_9.x/CSInterface.js";
+
 function getApiKey() {
   return localStorage.getItem("pexels-key");
 }
@@ -8,4 +10,23 @@ function setApiKey(key) {
   }
 }
 
-export { getApiKey, setApiKey };
+function nativeHostCapabilities(script) {
+  const csInterface = new window.CSInterface();
+  if (csInterface.hostEnvironment) {
+    return csInterface.getHostCapabilities(script);
+  }
+}
+
+function nativeEvalScript(script) {
+  // csInterface.evalScript(script);
+}
+
+function nativeAddEventListener(type, listener) {
+  // csInterface.addEventListener(type, listener);
+}
+
+function nativeRemoveEventListener(type, listener) {
+  // csInterface.removeEventListener(type, listener);
+}
+
+export { getApiKey, setApiKey, nativeHostCapabilities };

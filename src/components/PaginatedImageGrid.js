@@ -11,7 +11,8 @@ import ListSubheader from "@material-ui/core/ListSubheader";
 import Modal from "@material-ui/core/Modal";
 import Pagination from "./Pagination";
 import Photo from "./Photo";
-import { Typography } from "@material-ui/core";
+import Typography from "@material-ui/core/Typography";
+import { nativeHostCapabilities } from "../Utils";
 
 const styles = {
   title: {
@@ -48,6 +49,7 @@ class PaginatedImageGrid extends Component {
 
   handleDownloadClick = (e, photo) => {
     e.stopPropagation();
+    console.dir(nativeHostCapabilities());
     console.log(`TODO: execute CEP call. ID: ${photo.id}`);
   };
 
