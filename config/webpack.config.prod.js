@@ -29,7 +29,6 @@ const publicPath = "./";
 // For these, "homepage" can be set to "." to enable relative asset paths.
 const shouldUseRelativeAssetPaths = publicPath === "./";
 
-console.log(`shouldUseRelativeAssetPaths: ${shouldUseRelativeAssetPaths}`);
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== "false";
 // Some apps do not need the benefits of saving a web request, so not inlining the chunk
