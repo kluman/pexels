@@ -8,6 +8,7 @@ import InputBase from "@material-ui/core/InputBase";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import throttle from "lodash/throttle";
+import { nativeOpenBrowserUrl } from "../Utils";
 
 const styles = {
   root: { marginBottom: "1em" },
@@ -43,6 +44,10 @@ class PexelsAppBar extends Component {
 
     this.state = { settingsActive: false, key: props.key };
   }
+
+  logoClickHandler = () => {
+    nativeOpenBrowserUrl("https://www.pexels.com");
+  };
 
   settingsClickHandler = () => {
     let settingsActive, route;
@@ -140,6 +145,7 @@ class PexelsAppBar extends Component {
               src="./static/pexels-logo.svg"
               alt="Pexels"
               style={{ marginRight: ".4em" }}
+              onClick={this.logoClickHandler}
             />
             <Typography variant="h6" color="inherit">
               Pexels

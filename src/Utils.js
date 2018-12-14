@@ -1,32 +1,54 @@
-import CSInterface from "adobe-cep/CEP_8.x/CSInterface.js";
+/*
+ * The Adobe CEP environment provides node along with various node modules.
+ */
+const cep = window.cep;
+const cepNode = window.cep_node;
+const csInterface = window.csInterface;
+const process = window.process;
+const fs = cep && cep.fs;
 
-function getApiKey() {
+export function getApiKey() {
   return localStorage.getItem("pexels-key");
 }
 
-function setApiKey(key) {
+export function setApiKey(key) {
   if (key) {
     localStorage.setItem("pexels-key", key);
   }
 }
 
-function nativeHostCapabilities(script) {
-  const csInterface = new window.CSInterface();
-  if (csInterface.hostEnvironment) {
+export function nativeHostCapabilities(script) {
+  if (csInterface && csInterface.hostEnvironment) {
     return csInterface.getHostCapabilities(script);
   }
 }
 
-function nativeEvalScript(script) {
+export function nativeEvalScript(script) {
   // csInterface.evalScript(script);
 }
 
-function nativeAddEventListener(type, listener) {
+export function nativeAddEventListener(type, listener) {
   // csInterface.addEventListener(type, listener);
 }
 
-function nativeRemoveEventListener(type, listener) {
+export function nativeRemoveEventListener(type, listener) {
   // csInterface.removeEventListener(type, listener);
 }
 
-export { getApiKey, setApiKey, nativeHostCapabilities };
+export function nativeOpenBrowserUrl(url) {
+  if (cep && cep.util) {
+    cep.util.openURLInDefaultBrowser(url);
+  }
+}
+
+export function nativeInit() {
+  if (cep && process) {
+    const home =
+      process.env[process.platform == "win32" ? "USERPROFILE" : "HOME"];
+    const path = `${home}/pexels`;
+
+    if (fs.stat(path) !== 0) {
+      fs.makedir(path);
+    }
+  }
+}

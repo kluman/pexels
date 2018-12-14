@@ -23,7 +23,7 @@
             <DispatchInfo>
                 <Resources>
                     <MainPath>./index.html</MainPath>
-                    <ScriptPath>./jsx/pexels.js</ScriptPath>
+                    <ScriptPath>./extendscript/pexels.js</ScriptPath>
                     <CEFCommandLine>
                         <Parameter>--enable-nodejs</Parameter>
                     </CEFCommandLine>
@@ -31,7 +31,7 @@
                 <Lifecycle>
                     <AutoVisible>true</AutoVisible>
                     <StartOn>
-                        <Event>applicationActivate</Event>
+                        <Event>documentAfterActivate</Event>
                     </StartOn>
                 </Lifecycle>
                 <UI>
@@ -40,7 +40,7 @@
                     <Geometry>
                         <Size>
                             <Height>800</Height>
-                            <Width>750</Width>
+                            <Width>615</Width>
                         </Size>
                         <MaxSize>
                             <Height>800</Height>
@@ -48,7 +48,7 @@
                         </MaxSize>
                         <MinSize>
                             <Height>700</Height>
-                            <Width>612</Width>
+                            <Width>615</Width>
                         </MinSize>
                     </Geometry>
                 </UI>

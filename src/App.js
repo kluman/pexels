@@ -6,7 +6,7 @@ import Main from "./screens/Main";
 import PexelsAppBar from "./components/PexelsAppBar";
 import Offline from "./screens/Offline";
 import Onboarding from "./screens/Onboarding";
-import { getApiKey, setApiKey } from "./Utils";
+import { getApiKey, setApiKey, nativeInit } from "./Utils";
 
 const theme = createMuiTheme({
   palette: {
@@ -20,6 +20,8 @@ const theme = createMuiTheme({
 class App extends Component {
   constructor(props) {
     super(props);
+
+    nativeInit();
 
     let apiKey = getApiKey();
     let onboardedDate = this.getOnboardedDate();

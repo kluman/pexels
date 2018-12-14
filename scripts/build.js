@@ -196,7 +196,7 @@ function copyNativeFolder() {
     `${paths.appBuild}/extendscript/json2.js`
   );
   fs.copySync(paths.appNative, paths.appBuild, {
-    dereference: true,
-    filter: file => file.indexOf(".debug") === -1
+    dereference: true
+    // filter: file => file.indexOf(".debug") === -1
   });
 }
