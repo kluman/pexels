@@ -1,18 +1,17 @@
 import React, { Component } from "react";
-import classnames from "classnames";
+import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import Error from "./Error";
 import Icon from "@material-ui/core/Icon";
 import IconButton from "@material-ui/core/IconButton";
-import Modal from "@material-ui/core/Modal";
 import PexelsAPI from "pexels-api-wrapper";
 import Typography from "@material-ui/core/Typography";
 import { getApiKey } from "../Utils";
 import { withStyles } from "@material-ui/core/styles";
+import { nativeOpenBrowserUrl } from "../Utils";
 
 const styles = {
   card: {
@@ -22,6 +21,11 @@ const styles = {
     display: "inline-block",
     marginRight: "5px",
     fontWeight: "bolder"
+  },
+  cardPhotographerButton: {
+    padding: "5px",
+    textTransform: "none",
+    fontSize: ".75rem"
   },
   media: {
     height: "55vh",
@@ -49,6 +53,10 @@ class Photo extends Component {
     this.props.closeHandler();
   };
 
+  handlePhotographerClick = (url, e) => {
+    nativeOpenBrowserUrl(url);
+  };
+
   photo(id) {
     const key = getApiKey();
 
@@ -73,9 +81,14 @@ class Photo extends Component {
                       <span className={classes.cardContentLabel}>
                         Photographer:
                       </span>
-                      <span className={classes.cardContentValue}>
+                      <Button
+                        className={classes.cardPhotographerButton}
+                        onClick={e =>
+                          this.handlePhotographerClick(data.photographer_url, e)
+                        }
+                      >
                         {data.photographer}
-                      </span>
+                      </Button>
                     </Typography>
                   </div>
                   <div>
