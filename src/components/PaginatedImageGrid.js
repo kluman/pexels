@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./PaginatedImageGrid.css";
 import { withStyles } from "@material-ui/core/styles";
 import CardMedia from "@material-ui/core/CardMedia";
 import Error from "../components/Error";
@@ -12,7 +13,7 @@ import Modal from "@material-ui/core/Modal";
 import Pagination from "./Pagination";
 import Photo from "./Photo";
 import Typography from "@material-ui/core/Typography";
-import { nativeHostCapabilities } from "../Utils";
+import { saveImage } from "../Utils";
 
 const styles = {
   title: {
@@ -49,8 +50,8 @@ class PaginatedImageGrid extends Component {
 
   handleDownloadClick = (e, photo) => {
     e.stopPropagation();
-    console.dir(nativeHostCapabilities());
-    console.log(`TODO: execute CEP call. ID: ${photo.id}`);
+    // TODO: this is going to return a Promise need to show activity && status
+    saveImage(photo);
   };
 
   render() {
