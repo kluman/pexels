@@ -18,46 +18,44 @@ export function setApiKey(key) {
   }
 }
 
-// TODO wrap this in a Promise
 export function saveImage(photo) {
-  if (hostEnvironment) {
-    const path = homeDirectoryPath(),
-      now = new Date(),
-      year = now.getFullYear(),
-      month = now.getMonth(),
-      fullPath = `${path}/${year}/${month}`;
+  return new Promise((resolve, reject) => {
+    if (hostEnvironment) {
+      const path = homeDirectoryPath(),
+        now = new Date(),
+        year = now.getFullYear(),
+        month = now.getMonth(),
+        fullPath = `${path}/${year}/${month}`;
 
-    if (!fs.existsSync(`${path}/${year}`)) {
-      fs.mkdirSync(`${path}/${year}`);
-    }
+      if (!fs.existsSync(`${path}/${year}`)) {
+        fs.mkdirSync(`${path}/${year}`);
+      }
 
-    if (!fs.existsSync(`${fullPath}`)) {
-      fs.mkdirSync(`${fullPath}`);
-    }
+      if (!fs.existsSync(`${fullPath}`)) {
+        fs.mkdirSync(`${fullPath}`);
+      }
 
-    console.log(`Start download`);
-    var dest = `${fullPath}/${photo.id}.jpg`;
-    var file = fs.createWriteStream(dest);
-    https
-      .get(photo.src.original, response => {
-        response.pipe(file);
-        file.on("finish", () => {
-          file.close();
-          // TODO resolve
-          console.log("finished");
+      var dest = `${fullPath}/${photo.id}.jpg`;
+      var file = fs.createWriteStream(dest);
+      https
+        .get(photo.src.original, response => {
+          response.pipe(file);
+
+          file.on("finish", () => {
+            file.close();
+            resolve(fullPath);
+          });
+        })
+        .on("error", err => {
+          fs.unlink(dest); // Delete the file async.
+          throw new Error(`${err.message}`);
         });
-      })
-      .on("error", err => {
-        fs.unlink(dest); // Delete the file async.
-        console.log(`Error ${err.message}`);
-        // TODO throw Error when wrapped in promise
-      });
-  } else {
-    // TODO throw Error
-    console.log(
-      `Not in Adobe CEP environemnt, can not download photo ${photo.id}`
-    );
-  }
+    } else {
+      throw new Error(
+        `Not in Adobe CEP environemnt, unable not download photo ${photo.id}`
+      );
+    }
+  });
 }
 
 export function nativeEvalScript(script) {

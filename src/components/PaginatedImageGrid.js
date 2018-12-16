@@ -12,6 +12,7 @@ import ListSubheader from "@material-ui/core/ListSubheader";
 import Modal from "@material-ui/core/Modal";
 import Pagination from "./Pagination";
 import Photo from "./Photo";
+import PhotoSnackbar from "./PhotoSnackbar";
 import Typography from "@material-ui/core/Typography";
 import { saveImage } from "../Utils";
 
@@ -32,7 +33,13 @@ class PaginatedImageGrid extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { id: null, open: false };
+    this.state = {
+      id: null,
+      open: false,
+      snackbarOpen: false,
+      snackbarType: "info",
+      snackbarMessage: undefined
+    };
   }
 
   handlePagination = page => {
@@ -50,8 +57,22 @@ class PaginatedImageGrid extends Component {
 
   handleDownloadClick = (e, photo) => {
     e.stopPropagation();
-    // TODO: this is going to return a Promise need to show activity && status
-    saveImage(photo);
+
+    saveImage(photo)
+      .then(localPath => {
+        this.setState({
+          snackbarOpen: true,
+          snackbarMessage: `Success, saved photo to '${localPath}'`,
+          snackbarVariant: "success"
+        });
+      })
+      .catch(err => {
+        this.setState({
+          snackbarOpen: true,
+          snackbarMessage: err.message,
+          snackbarVariant: "error"
+        });
+      });
   };
 
   render() {
@@ -119,6 +140,11 @@ class PaginatedImageGrid extends Component {
             closeHandler={this.handleClose}
           />
         </Modal>
+
+        <PhotoSnackbar
+          message={this.state.snackbarMessage}
+          variant={this.state.snackbarVariant}
+        />
       </div>
     );
   }
