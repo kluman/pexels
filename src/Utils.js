@@ -18,7 +18,7 @@ export function setApiKey(key) {
   }
 }
 
-export function saveImage(photo) {
+export async function saveImage(photo) {
   return new Promise((resolve, reject) => {
     if (hostEnvironment) {
       const path = homeDirectoryPath(),
@@ -43,6 +43,7 @@ export function saveImage(photo) {
 
           file.on("finish", () => {
             file.close();
+            // TODO: ExtendScript callback (new function wrapped in Promise async/await)
             resolve(fullPath);
           });
         })
@@ -58,16 +59,19 @@ export function saveImage(photo) {
   });
 }
 
-export function nativeEvalScript(script) {
-  // csInterface.evalScript(script);
-}
-
-export function nativeAddEventListener(type, listener) {
-  // csInterface.addEventListener(type, listener);
-}
-
-export function nativeRemoveEventListener(type, listener) {
-  // csInterface.removeEventListener(type, listener);
+export async function nativePlaceImage(path, width, height) {
+  return new Promise((resolve, reject) => {
+    csInterface.evalScript(
+      `pexelsPlaceImage('${path}', undefined, ${width}, ${height})`,
+      res => {
+        if (res === "Ok") {
+          resolve(true);
+        } else {
+          throw new Error(res);
+        }
+      }
+    );
+  });
 }
 
 export function nativeOpenBrowserUrl(url) {

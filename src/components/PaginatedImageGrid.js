@@ -14,7 +14,7 @@ import Pagination from "./Pagination";
 import Photo from "./Photo";
 import PhotoSnackbar from "./PhotoSnackbar";
 import Typography from "@material-ui/core/Typography";
-import { saveImage } from "../Utils";
+import { nativePlaceImage, saveImage } from "../Utils";
 
 const styles = {
   title: {
@@ -60,11 +60,25 @@ class PaginatedImageGrid extends Component {
 
     saveImage(photo)
       .then(localPath => {
-        this.setState({
-          snackbarOpen: true,
-          snackbarMessage: `Success, saved photo to '${localPath}'`,
-          snackbarVariant: "success"
-        });
+        nativePlaceImage(
+          `${localPath}/${photo.id}.jpg`,
+          photo.width,
+          photo.height
+        )
+          .then(res => {
+            this.setState({
+              snackbarOpen: true,
+              snackbarMessage: `Success, saved photo to '${localPath}'`,
+              snackbarVariant: "success"
+            });
+          })
+          .catch(err => {
+            this.setState({
+              snackbarOpen: true,
+              snackbarMessage: err.message,
+              snackbarVariant: "error"
+            });
+          });
       })
       .catch(err => {
         this.setState({
