@@ -3,7 +3,6 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Icon from "@material-ui/core/Icon";
 import IconButton from "@material-ui/core/IconButton";
 import { withStyles } from "@material-ui/core/styles";
-import { finished } from "stream";
 
 const styles = theme => ({
   progress: {

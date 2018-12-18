@@ -9,11 +9,6 @@ function pexelsPlaceImage(path, width, height, selection) {
         var document = app.activeDocument;
         var result = undefined;
         
-        $.writeln("path " + path);
-        $.writeln("selection " + selection);
-        $.writeln("width " + width);
-        $.writeln("height " + height);
-        
         if (document && document.isValid) {
             var activeSelection = selection||app.selection;
             
@@ -41,8 +36,8 @@ function pexelsPlaceImage(path, width, height, selection) {
                 case 'Array':
                     if (activeSelection.length > 0) {
                         pexelsPlaceImage(path, width, height, activeSelection[0]);
+                        return;
                     }
-                    return;
                 default:
                     try {
                         var file = new File(path);
@@ -68,7 +63,7 @@ function pexelsPlaceImage(path, width, height, selection) {
             result = "No active document.";
         }
     } catch (e) {
-        result = e;
+        result = "Unknown error " + e;
     }
 
     return result;

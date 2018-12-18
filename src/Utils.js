@@ -43,7 +43,6 @@ export async function saveImage(photo) {
 
           file.on("finish", () => {
             file.close();
-            // TODO: ExtendScript callback (new function wrapped in Promise async/await)
             resolve(fullPath);
           });
         })
@@ -64,7 +63,7 @@ export async function nativePlaceImage(path, width, height) {
     csInterface.evalScript(
       `pexelsPlaceImage('${path}', ${width}, ${height})`,
       res => {
-        if (res === "Ok") {
+        if (res === "Ok" || !res) {
           resolve(true);
         } else {
           throw new Error(res);
@@ -93,7 +92,7 @@ export function nativeInit() {
 function homeDirectoryPath() {
   if (hostEnvironment) {
     const home =
-      process.env[process.platform == "win32" ? "USERPROFILE" : "HOME"];
+      process.env[process.platform === "win32" ? "USERPROFILE" : "HOME"];
     return `${home}/Pexels`;
   }
 }

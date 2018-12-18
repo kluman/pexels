@@ -24,7 +24,7 @@ class PhotoSnackbar extends Component {
   }
 
   shouldComponentUpdate(newProps, newState) {
-    if (this.props.message != newProps.message) {
+    if (this.props.message !== newProps.message) {
       this.setState({ open: true });
     }
     return true;
