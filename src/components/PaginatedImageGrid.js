@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./PaginatedImageGrid.css";
 import { withStyles } from "@material-ui/core/styles";
 import CardMedia from "@material-ui/core/CardMedia";
+import Download from "./Download";
 import Error from "../components/Error";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
@@ -55,7 +56,7 @@ class PaginatedImageGrid extends Component {
     this.setState({ open: false });
   };
 
-  handleDownloadClick = (e, photo) => {
+  handleDownloadClick = (e, photo, finishedHandler) => {
     e.stopPropagation();
 
     saveImage(photo)
@@ -71,6 +72,7 @@ class PaginatedImageGrid extends Component {
               snackbarMessage: `Success, saved photo to '${localPath}'`,
               snackbarVariant: "success"
             });
+            finishedHandler();
           })
           .catch(err => {
             this.setState({
@@ -78,6 +80,7 @@ class PaginatedImageGrid extends Component {
               snackbarMessage: err.message,
               snackbarVariant: "error"
             });
+            finishedHandler();
           });
       })
       .catch(err => {
@@ -86,6 +89,7 @@ class PaginatedImageGrid extends Component {
           snackbarMessage: err.message,
           snackbarVariant: "error"
         });
+        finishedHandler();
       });
   };
 
@@ -122,12 +126,10 @@ class PaginatedImageGrid extends Component {
                 className={classes.actions}
                 actionIcon={
                   <div className={classes.iconContainer}>
-                    <IconButton
-                      className={classes.iconButton}
-                      onClick={e => this.handleDownloadClick(e, photo)}
-                    >
-                      <Icon>cloud_download</Icon>
-                    </IconButton>
+                    <Download
+                      photo={photo}
+                      clickHandler={this.handleDownloadClick}
+                    />
                     <IconButton
                       className={classes.iconButton}
                       onClick={e => this.handleImageClick(e, photo)}

@@ -62,7 +62,7 @@ export async function saveImage(photo) {
 export async function nativePlaceImage(path, width, height) {
   return new Promise((resolve, reject) => {
     csInterface.evalScript(
-      `pexelsPlaceImage('${path}', undefined, ${width}, ${height})`,
+      `pexelsPlaceImage('${path}', ${width}, ${height})`,
       res => {
         if (res === "Ok") {
           resolve(true);

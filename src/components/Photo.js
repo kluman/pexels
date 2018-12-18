@@ -4,6 +4,7 @@ import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
+import Download from "./Download";
 import Error from "./Error";
 import Icon from "@material-ui/core/Icon";
 import IconButton from "@material-ui/core/IconButton";
@@ -45,8 +46,8 @@ class Photo extends Component {
     return newState.result !== undefined;
   }
 
-  handleDownloadClick = (e, photo) => {
-    this.props.downloadHandler(e, photo);
+  handleDownloadClick = (e, photo, finishedHandler) => {
+    this.props.downloadHandler(e, photo, finishedHandler);
   };
 
   handleCloseClick = () => {
@@ -109,12 +110,10 @@ class Photo extends Component {
                   </div>
                 </CardContent>
                 <CardActions>
-                  <IconButton
-                    className={classes.iconButton}
-                    onClick={e => this.handleDownloadClick(e, data)}
-                  >
-                    <Icon>cloud_download</Icon>
-                  </IconButton>
+                  <Download
+                    photo={data}
+                    clickHandler={this.handleDownloadClick}
+                  />
                   <IconButton
                     className={classes.iconButton}
                     onClick={e => this.handleCloseClick(e, data)}
