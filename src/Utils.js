@@ -58,10 +58,10 @@ export async function saveImage(photo) {
   });
 }
 
-export async function nativePlaceImage(path, width, height) {
+export async function nativePlaceImage(path, width, height, attribution) {
   return new Promise((resolve, reject) => {
     csInterface.evalScript(
-      `pexelsPlaceImage('${path}', ${width}, ${height})`,
+      `pexelsPlaceImage('${path}', ${width}, ${height}, '${attribution}')`,
       res => {
         if (res === "Ok" || !res) {
           resolve(true);

@@ -64,7 +64,8 @@ class PaginatedImageGrid extends Component {
         nativePlaceImage(
           `${localPath}/${photo.id}.jpg`,
           photo.width,
-          photo.height
+          photo.height,
+          photo.photographer
         )
           .then(res => {
             this.setState({
