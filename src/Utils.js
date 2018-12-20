@@ -18,7 +18,7 @@ export function setApiKey(key) {
   }
 }
 
-export async function saveImage(photo) {
+export function saveImage(photo) {
   return new Promise((resolve, reject) => {
     if (hostEnvironment) {
       const path = homeDirectoryPath(),

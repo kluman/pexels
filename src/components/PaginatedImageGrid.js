@@ -37,7 +37,6 @@ class PaginatedImageGrid extends Component {
     this.state = {
       id: null,
       open: false,
-      snackbarOpen: false,
       snackbarType: "info",
       snackbarMessage: undefined
     };
@@ -56,10 +55,10 @@ class PaginatedImageGrid extends Component {
     this.setState({ open: false });
   };
 
-  handleDownloadClick = (e, photo, finishedHandler) => {
+  handleDownloadClick = async (e, photo, finishedHandler) => {
     e.stopPropagation();
 
-    saveImage(photo)
+    await saveImage(photo)
       .then(localPath => {
         nativePlaceImage(
           `${localPath}/${photo.id}.jpg`,
@@ -69,15 +68,15 @@ class PaginatedImageGrid extends Component {
         )
           .then(res => {
             this.setState({
-              snackbarOpen: true,
-              snackbarMessage: `Success, saved photo to '${localPath}'`,
+              snackbarMessage: `Success, saved photo '${
+                photo.id
+              }' to '${localPath}'`,
               snackbarVariant: "success"
             });
             finishedHandler();
           })
           .catch(err => {
             this.setState({
-              snackbarOpen: true,
               snackbarMessage: err.message,
               snackbarVariant: "error"
             });
@@ -86,12 +85,13 @@ class PaginatedImageGrid extends Component {
       })
       .catch(err => {
         this.setState({
-          snackbarOpen: true,
           snackbarMessage: err.message,
           snackbarVariant: "error"
         });
         finishedHandler();
       });
+
+    console.dir(this.state);
   };
 
   render() {
