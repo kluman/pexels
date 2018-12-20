@@ -90,8 +90,6 @@ class PaginatedImageGrid extends Component {
         });
         finishedHandler();
       });
-
-    console.dir(this.state);
   };
 
   render() {
@@ -100,6 +98,8 @@ class PaginatedImageGrid extends Component {
 
     if (data.error) {
       return <Error message={data.error} />;
+    } else if (data.total_results === 0) {
+      return <Error message="No results were found." />;
     }
 
     return (
