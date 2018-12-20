@@ -52,7 +52,7 @@ export function saveImage(photo) {
         });
     } else {
       throw new Error(
-        `Not in Adobe CEP environemnt, unable not download photo ${photo.id}`
+        `Not in Adobe CEP environemnt, unable to download photo ${photo.id}`
       );
     }
   });
