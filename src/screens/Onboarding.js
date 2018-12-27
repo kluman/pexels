@@ -12,7 +12,7 @@ class Onboarding extends Component {
       cards: [
         {
           image: {
-            src: "../static/onboarding-1.jpg"
+            src: "./static/onboarding-1.jpg"
           },
           description: (
             <Typography>
@@ -23,10 +23,10 @@ class Onboarding extends Component {
         },
         {
           image: {
-            src: "../static/onboarding-2.jpg"
+            src: "./static/onboarding-2.jpg"
           },
           description: (
-            <Typography>
+            <Typography paragraph={true}>
               You will need to request an API key from Pexels to access photos
               from the plugin. After an API key is emailed to you just save it
               in the settings screen.
@@ -34,6 +34,9 @@ class Onboarding extends Component {
                 url="https://www.pexels.com/api/"
                 display="Request an API Key"
                 size="large"
+                variant="contained"
+                color="primary"
+                style={{ marginTop: "1rem" }}
               />
             </Typography>
           )

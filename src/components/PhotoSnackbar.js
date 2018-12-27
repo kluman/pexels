@@ -12,7 +12,7 @@ const styles = {
     backgroundColor: "red"
   },
   success: {
-    backgroundColor: "green"
+    backgroundColor: "#05a081"
   }
 };
 
