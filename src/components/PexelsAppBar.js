@@ -35,7 +35,7 @@ const styles = {
     color: "#000"
   },
   settings: { width: "100%", textAlign: "right" },
-  settingsIconActive: { color: "blue" }
+  settingsIconActive: { color: "#05a081" }
 };
 
 class PexelsAppBar extends Component {
@@ -122,16 +122,18 @@ class PexelsAppBar extends Component {
             </div>
           </div>
           <div className={classes.settings}>
-            <Icon
-              onClick={this.settingsClickHandler}
-              className={
-                state.settingsActive
-                  ? classes.settingsIconActive
-                  : classes.settingsIcon
-              }
-            >
-              settings
-            </Icon>
+            <IconButton>
+              <Icon
+                onClick={this.settingsClickHandler}
+                className={
+                  state.settingsActive
+                    ? classes.settingsIconActive
+                    : classes.settingsIcon
+                }
+              >
+                settings
+              </Icon>
+            </IconButton>
           </div>
         </div>
       );
@@ -158,4 +160,4 @@ class PexelsAppBar extends Component {
   }
 }
 
-export default withStyles(styles)(PexelsAppBar);
+export default withStyles(styles, { withTheme: true })(PexelsAppBar);

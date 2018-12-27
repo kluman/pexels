@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import "./PaginatedImageGrid.css";
-import { withStyles } from "@material-ui/core/styles";
 import CardMedia from "@material-ui/core/CardMedia";
 import Download from "./Download";
 import Error from "../components/Error";
@@ -16,10 +14,12 @@ import Photo from "./Photo";
 import PhotoSnackbar from "./PhotoSnackbar";
 import Typography from "@material-ui/core/Typography";
 import { nativePlaceImage, saveImage } from "../Utils";
+import { withStyles } from "@material-ui/core/styles";
 
 const styles = {
   title: {
-    fontSize: "1.6em"
+    marginBottom: "1rem",
+    fontSize: "1rem"
   },
   media: {
     height: 200,

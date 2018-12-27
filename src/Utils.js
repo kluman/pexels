@@ -76,7 +76,9 @@ export async function nativePlaceImage(path, width, height, attribution) {
 export function nativeOpenBrowserUrl(url) {
   if (hostEnvironment) {
     cep.util.openURLInDefaultBrowser(url);
+    return true;
   }
+  return false;
 }
 
 export function nativeInit() {

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "./App.css";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import Settings from "./screens/Settings";
 import Main from "./screens/Main";
@@ -10,10 +9,28 @@ import { getApiKey, setApiKey, nativeInit } from "./Utils";
 
 const theme = createMuiTheme({
   palette: {
-    type: "dark"
+    type: "dark",
+    primary: {
+      main: "#fff",
+      secondary: "#05a081"
+    }
   },
   typography: {
-    useNextVariants: true
+    useNextVariants: true,
+    fontFamily: ["Roboto", "sans-serif"]
+  },
+  overrides: {
+    MuiButton: {
+      label: {
+        fontSize: "11px",
+        textTransform: "initial"
+      }
+    },
+    MuiGridList: {
+      root: {
+        margin: "0 !important"
+      }
+    }
   }
 });
 
@@ -27,7 +44,9 @@ class App extends Component {
     let onboardedDate = this.getOnboardedDate();
     let screen;
 
-    if (apiKey && onboardedDate) {
+    if (!window.navigator.onLine) {
+      screen = <Offline />;
+    } else if (apiKey && onboardedDate) {
       screen = <Main />;
     } else if (!onboardedDate) {
       screen = <Onboarding doneHandler={this.handleOnboardingDone} />;

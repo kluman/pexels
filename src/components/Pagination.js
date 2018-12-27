@@ -3,7 +3,16 @@ import { withStyles } from "@material-ui/core/styles";
 import Icon from "@material-ui/core/Icon";
 import IconButton from "@material-ui/core/IconButton";
 
-const styles = {};
+const styles = {
+  pagination: {
+    display: "flex",
+    justifyContent: "center"
+  },
+  icon: {
+    fontSize: "3rem",
+    color: "#05a081"
+  }
+};
 
 class Pagination extends Component {
   clickHandler = page => {
@@ -17,9 +26,13 @@ class Pagination extends Component {
 
     if (prev) {
       prevButton = (
-        <IconButton color="secondary">
-          <Icon color="secondary" onClick={e => this.clickHandler(prev, e)}>
-            arrow_back_ios
+        <IconButton color="primary">
+          <Icon
+            color="primary"
+            onClick={e => this.clickHandler(prev, e)}
+            className={classes.icon}
+          >
+            chevron_left
           </Icon>
         </IconButton>
       );
@@ -27,9 +40,13 @@ class Pagination extends Component {
 
     if (next) {
       nextButton = (
-        <IconButton color="secondary">
-          <Icon color="secondary" onClick={e => this.clickHandler(next, e)}>
-            arrow_forward_ios
+        <IconButton color="primary">
+          <Icon
+            color="primary"
+            onClick={e => this.clickHandler(next, e)}
+            className={classes.icon}
+          >
+            chevron_right
           </Icon>
         </IconButton>
       );

@@ -10,10 +10,10 @@ import Typography from "@material-ui/core/Typography";
 
 const styles = {
   card: {
-    width: "90vw"
+    width: "95vw"
   },
   media: {
-    height: 230
+    height: 300
   }
 };
 
@@ -41,10 +41,10 @@ class OnboardingCard extends Component {
               </Typography>
             </div>
             <CardContent>
-              <Typography gutterBottom variant="h5" component="h2">
+              <Typography gutterBottom variant="h3">
                 {data.heading}
               </Typography>
-              <Typography component="p">{data.description}</Typography>
+              {data.description}
             </CardContent>
           </CardActionArea>
           <CardActions>

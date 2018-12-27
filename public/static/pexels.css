@@ -31,3 +31,7 @@ body {
   margin: 0;
   background-color: #5a5a5a;
 }
+
+*:focus {
+  outline: none;
+}

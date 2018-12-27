@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import OnboardingCard from "../components/OnboardingCard";
+import Typography from "@material-ui/core/Typography";
+import ExternalLink from "../components/ExternalLink";
 
 class Onboarding extends Component {
   constructor(props) {
@@ -10,33 +12,31 @@ class Onboarding extends Component {
       cards: [
         {
           image: {
-            src:
-              "https://images.pexels.com/photos/1249214/pexels-photo-1249214.jpeg",
-            title: "Person With Tattoo Playing Paper, Scissor and Stone",
-            source: "rawpixel.com"
+            src: "../static/onboarding-1.jpg"
           },
-          heading: "This is the first slide",
-          description: "Lorem ipsum ..."
+          description: (
+            <Typography>
+              Bring all of the best stock photos shared by talented
+              photographers directly into your InDesign documents.
+            </Typography>
+          )
         },
         {
           image: {
-            src:
-              "https://images.pexels.com/photos/1509428/pexels-photo-1509428.jpeg",
-            title: "Flat-lay Photography of Macbook Pro Beside Paper",
-            source: "rawpixel.com"
+            src: "../static/onboarding-2.jpg"
           },
-          heading: "This is the second slide",
-          description: "Lorem ipsum ..."
-        },
-        {
-          image: {
-            src:
-              "https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg",
-            title: "Smiling Woman Looking Upright Standing Against Yellow Wall",
-            source: "juan mendez"
-          },
-          heading: "This is the third slide",
-          description: "Lorem ipsum ..."
+          description: (
+            <Typography>
+              You will need to request an API key from Pexels to access photos
+              from the plugin. After an API key is emailed to you just save it
+              in the settings screen.
+              <ExternalLink
+                url="https://www.pexels.com/api/"
+                display="Request an API Key"
+                size="large"
+              />
+            </Typography>
+          )
         }
       ]
     };
@@ -56,10 +56,6 @@ class Onboarding extends Component {
 
     return (
       <div className="Onboarding">
-        <p>
-          Welcome, need a nice thing to say here to introduce users to the
-          plugin.
-        </p>
         <OnboardingCard
           data={currentCard}
           index={this.state.index}

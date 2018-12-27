@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
@@ -9,10 +8,11 @@ import Error from "./Error";
 import Icon from "@material-ui/core/Icon";
 import IconButton from "@material-ui/core/IconButton";
 import PexelsAPI from "pexels-api-wrapper";
+import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
 import { getApiKey } from "../Utils";
 import { withStyles } from "@material-ui/core/styles";
-import { nativeOpenBrowserUrl } from "../Utils";
+import ExternalLink from "./ExternalLink";
 
 const styles = {
   card: {
@@ -21,16 +21,13 @@ const styles = {
   cardContentLabel: {
     display: "inline-block",
     marginRight: "5px",
-    fontWeight: "bolder"
-  },
-  cardPhotographerButton: {
-    padding: "5px",
-    textTransform: "none",
-    fontSize: ".75rem"
+    fontWeight: "bolder",
+    fontSize: ".9rem"
   },
   media: {
     height: "55vh",
-    width: "auto"
+    width: "auto",
+    backgroundSize: "contain"
   }
 };
 
@@ -52,10 +49,6 @@ class Photo extends Component {
 
   handleCloseClick = () => {
     this.props.closeHandler();
-  };
-
-  handlePhotographerClick = (url, e) => {
-    nativeOpenBrowserUrl(url);
   };
 
   photo(id) {
@@ -82,14 +75,13 @@ class Photo extends Component {
                       <span className={classes.cardContentLabel}>
                         Photographer:
                       </span>
-                      <Button
-                        className={classes.cardPhotographerButton}
-                        onClick={e =>
-                          this.handlePhotographerClick(data.photographer_url, e)
-                        }
-                      >
-                        {data.photographer}
-                      </Button>
+                      <Tooltip title="View all from this photographer.">
+                        <ExternalLink
+                          url={data.photographer_url}
+                          display={data.photographer}
+                          size="small"
+                        />
+                      </Tooltip>
                     </Typography>
                   </div>
                   <div>
