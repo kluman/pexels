@@ -14,7 +14,6 @@ class ExternalLink extends Component {
 
   render() {
     const { display, url, variant } = this.props;
-    console.log(`variant ${variant}`);
 
     return (
       <Button
