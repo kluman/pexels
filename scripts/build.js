@@ -192,8 +192,8 @@ function copyPublicFolder() {
 
 function copyNativeFolder() {
   fs.copySync(paths.appNative, paths.appBuild, {
-    dereference: true
-    // filter: file => file.indexOf(".debug") === -1
+    dereference: true,
+    filter: file => file.indexOf(".debug") === -1
   });
   fs.copySync(
     `${paths.appNodeModules}/adobe-cep/CEP_8.x/CSInterface.js`,
