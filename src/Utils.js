@@ -91,7 +91,7 @@ export function nativeInit() {
   }
 }
 
-function homeDirectoryPath() {
+export function homeDirectoryPath() {
   if (hostEnvironment) {
     const home =
       process.env[process.platform === "win32" ? "USERPROFILE" : "HOME"];

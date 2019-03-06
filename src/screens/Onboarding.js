@@ -33,10 +33,10 @@ class Onboarding extends Component {
               <ExternalLink
                 url="https://www.pexels.com/api/"
                 display="Request an API Key"
-                size="large"
-                variant="contained"
+                size="small"
+                variant="outlined"
                 color="primary"
-                style={{ marginTop: "1rem" }}
+                style={{ marginLeft: "1em" }}
               />
             </Typography>
           )

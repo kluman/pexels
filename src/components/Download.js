@@ -4,12 +4,7 @@ import Icon from "@material-ui/core/Icon";
 import IconButton from "@material-ui/core/IconButton";
 import { withStyles } from "@material-ui/core/styles";
 
-const styles = theme => ({
-  progress: {
-    width: 12,
-    height: 12
-  }
-});
+const styles = theme => ({});
 
 class Download extends Component {
   constructor(props) {
@@ -31,10 +26,7 @@ class Download extends Component {
     const { classes, photo } = this.props;
 
     return this.state.downloading ? (
-      <CircularProgress
-        className={classes.progress}
-        style={{ width: 20, height: 20 }}
-      />
+      <CircularProgress className={classes.progress} size={20} />
     ) : (
       <IconButton
         className={classes.iconButton}

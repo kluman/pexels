@@ -27,6 +27,10 @@ const styles = {
   },
   iconButton: {
     color: "#fff"
+  },
+  iconContainer: {
+    display: "flex",
+    alignItems: "center"
   }
 };
 

@@ -1,18 +1,19 @@
 import React, { Component } from "react";
 import ExternalLink from "../components/ExternalLink";
+import Fab from "@material-ui/core/Fab";
 import Icon from "@material-ui/core/Icon";
-import IconButton from "@material-ui/core/IconButton";
+import InputAdornment from "@material-ui/core/InputAdornment";
 import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Tooltip from "@material-ui/core/Tooltip";
-import { getApiKey } from "../Utils";
+import { getApiKey, homeDirectoryPath } from "../Utils";
 import { withStyles } from "@material-ui/core/styles";
 
 const styles = {
   heading: {
-    marginBottom: "1rem",
-    fontSize: ".9rem"
+    marginBottom: "1em",
+    fontSize: "1.2em"
   },
   keyFieldWrapper: {
     marginTop: ".5em",
@@ -27,9 +28,12 @@ const styles = {
     justifyContents: "center",
     width: "95vw"
   },
+  directoryField: {
+    marginBottom: "2em"
+  },
   externalLink: {
-    marginTop: "1rem",
-    marginBottom: "1rem"
+    marginTop: "1em",
+    marginBottom: "1em"
   },
   actions: {
     display: "flex",
@@ -49,7 +53,7 @@ class Settings extends Component {
     return (
       <div className={classes.wrapper}>
         <Typography
-          variant="h5"
+          variant="h2"
           gutterBottom={true}
           className={classes.heading}
         >
@@ -58,10 +62,35 @@ class Settings extends Component {
         <Paper elevation={1}>
           <div className={classes.keyFieldWrapper}>
             <TextField
+              helperText="Download Directory"
+              fullWidth
+              disabled
+              margin="dense"
+              variant="outlined"
+              defaultValue={homeDirectoryPath()}
+              InputProps={{
+                readOnly: true,
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Icon>folder</Icon>
+                  </InputAdornment>
+                )
+              }}
+              variant="outlined"
+              className={classes.directoryField}
+            />
+            <TextField
               required
               id="pexelsKey"
               label="Required"
               defaultValue={getApiKey()}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Icon>vpn_key</Icon>
+                  </InputAdornment>
+                )
+              }}
               placeholder="Pexels API Key"
               className={classes.keyField}
               fullWidth
@@ -79,9 +108,9 @@ class Settings extends Component {
           </div>
           <div className={classes.actions}>
             <Tooltip title="Save Settings">
-              <IconButton color="primary" onClick={this.handleSaveOnClick}>
+              <Fab color="primary" onClick={this.handleSaveOnClick}>
                 <Icon>save</Icon>
-              </IconButton>
+              </Fab>
             </Tooltip>
           </div>
         </Paper>

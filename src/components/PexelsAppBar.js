@@ -144,9 +144,9 @@ class PexelsAppBar extends Component {
         <AppBar position="static" color="default">
           <Toolbar variant="dense">
             <img
-              src="./static/pexels-logo.svg"
+              src="./static/logo.svg"
               alt="Pexels"
-              style={{ marginRight: ".4em" }}
+              style={{ marginRight: ".4em", height: "2.1em" }}
               onClick={this.logoClickHandler}
             />
             <Typography variant="h6" color="inherit">
