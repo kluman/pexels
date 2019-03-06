@@ -1,5 +1,7 @@
 # Pexels Adobe InDesign Plugin
 
+![screen shot](https://github.com/kluman/pexels/blob/master/public/static/onboarding-1.jpg)
+
 An [Adobe CEP](https://www.adobe.io/apis/creativecloud/cep.html) plugin for searching Pexels photos and
 importing them directly into an InDesign document.<br>
 
