@@ -43,8 +43,11 @@ const styles = {
 
 class Settings extends Component {
   handleSaveOnClick = () => {
-    this.props.keyHandler(document.getElementById("pexelsKey").value);
-    this.props.routeHandler("main");
+    let value = document.getElementById("pexelsKey").value;
+    if (value && (value.trim().length > 0)) {
+      this.props.keyHandler(document.getElementById("pexelsKey").value);
+      this.props.routeHandler("main");
+    }
   };
 
   render() {
