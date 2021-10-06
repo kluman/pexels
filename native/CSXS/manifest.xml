@@ -2,10 +2,10 @@
 <ExtensionManifest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    ExtensionBundleName="Pexels"
                    ExtensionBundleId="com.github.kluman.pexels"
-                   ExtensionBundleVersion="1.0.0"
+                   ExtensionBundleVersion="1.0.2"
                    Version="6.0">
     <ExtensionList>
-        <Extension Id="com.github.kluman.pexels" Version="1.0.0"/>
+        <Extension Id="com.github.kluman.pexels" Version="1.0.2"/>
     </ExtensionList>
     <ExecutionEnvironment>
         <HostList>
@@ -29,10 +29,7 @@
                     </CEFCommandLine>
                 </Resources>
                 <Lifecycle>
-                    <AutoVisible>true</AutoVisible>
-                    <StartOn>
-                        <Event>documentAfterActivate</Event>
-                    </StartOn>
+                    <AutoVisible>false</AutoVisible>
                 </Lifecycle>
                 <UI>
                     <Type>Panel</Type>
